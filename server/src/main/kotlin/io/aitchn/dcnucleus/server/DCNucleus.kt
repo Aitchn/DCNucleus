@@ -10,6 +10,9 @@ private val logger: Logger = LoggerFactory.getLogger("[DCNucleus-Server]")
 fun main() {
     val path = Paths.get("").toAbsolutePath().normalize()
     val pluginLoader = PluginLoader(path.resolve("plugins"))
+    val pluginManager = PluginManager
+    pluginManager.configure(pluginLoader)
+    pluginManager.enable("test-plugin")
 
     logger.info("DC Nucleus is running. path=$path")
 }
