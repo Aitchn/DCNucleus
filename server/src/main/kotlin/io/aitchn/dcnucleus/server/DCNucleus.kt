@@ -1,5 +1,8 @@
 package io.aitchn.dcnucleus.server
 
+import io.aitchn.dcnucleus.server.plugin.PluginDirWatcher
+import io.aitchn.dcnucleus.server.plugin.PluginLoader
+import io.aitchn.dcnucleus.server.plugin.PluginManager
 import io.aitchn.dcnucleus.server.system.SystemCommandInputHandler
 import io.aitchn.dcnucleus.server.system.SystemCommandManager
 import io.aitchn.dcnucleus.server.system.command.plugin.PluginCommand

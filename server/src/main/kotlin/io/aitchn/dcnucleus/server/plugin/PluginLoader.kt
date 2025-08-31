@@ -1,4 +1,4 @@
-package io.aitchn.dcnucleus.server
+package io.aitchn.dcnucleus.server.plugin
 
 import com.charleskorn.kaml.Yaml
 import org.slf4j.Logger

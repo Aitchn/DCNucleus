@@ -1,4 +1,4 @@
-package io.aitchn.dcnucleus.server
+package io.aitchn.dcnucleus.server.plugin
 
 import kotlinx.serialization.Serializable
 

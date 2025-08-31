@@ -1,7 +1,7 @@
 package io.aitchn.dcnucleus.server.system.command.plugin
 
 import io.aitchn.dcnucleus.api.system.SystemCommand
-import io.aitchn.dcnucleus.server.PluginManager
+import io.aitchn.dcnucleus.server.plugin.PluginManager
 import org.slf4j.LoggerFactory
 
 class PluginCommand: SystemCommand {

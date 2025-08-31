@@ -1,11 +1,12 @@
-package io.aitchn.dcnucleus.server
+package io.aitchn.dcnucleus.server.plugin
 
 import org.slf4j.LoggerFactory
 import java.nio.file.FileSystems
 import java.nio.file.Path
-import java.nio.file.StandardWatchEventKinds.*
+import java.nio.file.StandardWatchEventKinds
 import java.nio.file.WatchEvent
 import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import kotlin.io.path.isDirectory
 
@@ -36,12 +37,16 @@ class PluginDirWatcher(
             throw IllegalArgumentException("plugins dir not found: $pluginsDir")
         }
 
-        pluginsDir.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY)
+        pluginsDir.register(watchService,
+            StandardWatchEventKinds.ENTRY_CREATE,
+            StandardWatchEventKinds.ENTRY_DELETE,
+            StandardWatchEventKinds.ENTRY_MODIFY
+        )
         logger.info("Plugin directory watcher started")
 
         watchExecutor.execute {
             var scheduled = false
-            var lastFuture = null as java.util.concurrent.ScheduledFuture<*>?
+            var lastFuture = null as ScheduledFuture<*>?
 
             while (!closed) {
                 val key = try {
@@ -58,7 +63,7 @@ class PluginDirWatcher(
 
                 for (event in events) {
                     val kind = event.kind()
-                    if (kind == OVERFLOW) {
+                    if (kind == StandardWatchEventKinds.OVERFLOW) {
                         logger.warn("Watch service overflow - some events may have been lost")
                         continue
                     }
