@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 import java.nio.file.Paths
 
 
-private val logger: Logger = LoggerFactory.getLogger("DCNucleus")
+private val logger: Logger = LoggerFactory.getLogger("[DCNucleus-Server]")
 
 fun main() {
     val path = Paths.get("").toAbsolutePath().normalize()

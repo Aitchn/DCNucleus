@@ -1,1 +1,3 @@
 name: test-plugin
+version: 1.0.0
+entrypoint: io.aitchn.testplugin.TestPlugin

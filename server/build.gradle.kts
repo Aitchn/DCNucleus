@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.2.0"
+    kotlin("plugin.serialization") version "2.2.0"
 }
 
 group = "io.aitchn.dcnucleus.server"
@@ -15,7 +16,9 @@ dependencies {
     implementation(project(":test-plugin")) // 測試用
 
     // === === Serialization === ===
-    implementation("org.yaml:snakeyaml:2.4")
+    implementation("com.charleskorn.kaml:kaml:0.93.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+
 
     // === === Logger === ===
     runtimeOnly("ch.qos.logback:logback-classic:1.5.18")
