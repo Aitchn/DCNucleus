@@ -12,3 +12,4 @@ plugins {
 rootProject.name = "DCNucleus"
 include("server")
 include("api")
+include("test-plugin")

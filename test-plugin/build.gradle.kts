@@ -2,8 +2,8 @@ plugins {
     kotlin("jvm") version "2.2.0"
 }
 
-group = "io.aitchn.dcnucleus.api"
-version = "0.0.1"
+group = "io.aitchn.testplugin"
+version = "unspecified"
 
 repositories {
     mavenCentral()
@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    api("org.slf4j:slf4j-api:2.0.17")
+    implementation(project(":api"))
 }
 
 tasks.test {
