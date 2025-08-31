@@ -13,7 +13,7 @@ object PluginManager {
 
     private lateinit var loader: PluginLoader
     private val loaded = ConcurrentHashMap<String, LoadedPlugin>()
-    private val knownJarSig = java.util.concurrent.ConcurrentHashMap<String, String>()
+    private val knownJarSig = ConcurrentHashMap<String, String>()
     private val protectedJars = ConcurrentHashMap<String, Boolean>()
 
 
@@ -89,8 +89,8 @@ object PluginManager {
     }
 
     private fun jarSignature(path: Path): String {
-        val size = try { java.nio.file.Files.size(path) } catch (_: Exception) { -1L }
-        val lm   = try { java.nio.file.Files.getLastModifiedTime(path).toMillis() } catch (_: Exception) { -1L }
+        val size = try { Files.size(path) } catch (_: Exception) { -1L }
+        val lm   = try { Files.getLastModifiedTime(path).toMillis() } catch (_: Exception) { -1L }
         return "$size:$lm"
     }
 
