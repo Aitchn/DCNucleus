@@ -67,4 +67,28 @@ class PluginLoader(
             null
         }
     }
+
+    private fun scanOnce(): Map<String, Path> {
+        val discovered = LinkedHashMap<String, Path>()
+        val jars = listPluginJars()
+        for (jar in jars) {
+            val yamlText = readPluginYaml(jar) ?: continue
+            val desc = parseDescriptor(yamlText, jar.fileName.toString()) ?: continue
+            val name = desc.name
+            if (discovered.putIfAbsent(name, jar) != null) {
+                logger.error("Duplicate plugin name '$name'. Jar $jar is ignored.")
+            } else {
+                logger.info("Discovered plugin: $name v${desc.version}")
+            }
+        }
+        return discovered
+    }
+
+    fun refresh(): Map<String, Path> {
+        val discovered = scanOnce()
+        _pluginJarMap.clear()
+        _pluginJarMap.putAll(discovered)
+        logger.info("Refreshed plugins. Found ${_pluginJarMap.size} candidate(s).")
+        return pluginJarMap // 回傳不可變快照
+    }
 }

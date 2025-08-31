@@ -23,6 +23,11 @@ dependencies {
     // === === Logger === ===
     runtimeOnly("ch.qos.logback:logback-classic:1.5.18")
     runtimeOnly("org.fusesource.jansi:jansi:2.4.2")
+
+    // === === Command Line Interface === ===
+    implementation("org.jline:jline-reader:3.30.5")
+    implementation("org.jline:jline-terminal:3.30.5")
+
 }
 
 tasks.test {
