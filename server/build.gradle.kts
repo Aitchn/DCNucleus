@@ -18,6 +18,8 @@ dependencies {
     // === === Serialization === ===
     implementation("com.charleskorn.kaml:kaml:0.93.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0")
 
 
     // === === Logger === ===

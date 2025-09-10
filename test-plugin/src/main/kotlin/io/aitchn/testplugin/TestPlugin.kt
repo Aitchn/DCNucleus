@@ -1,10 +1,10 @@
 package io.aitchn.testplugin
 
-import io.aitchn.dcnucleus.api.DCNucleusPlugin
+import io.aitchn.dcnucleus.api.Plugin
 
-class TestPlugin: DCNucleusPlugin() {
+class TestPlugin: Plugin() {
 
     override fun onEnable() {
-        logger.info("Test plugin enabled. $dataFolder")
+        logger.info("Test plugin enabled. $name")
     }
 }
