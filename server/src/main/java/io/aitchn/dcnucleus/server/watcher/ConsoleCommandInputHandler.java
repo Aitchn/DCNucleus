@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 
 public class ConsoleCommandInputHandler implements AutoCloseable{
     private static final Logger logger = DCNucleus.logger;
+    private final ConsoleCommandManager commandManager = ConsoleCommandManager.INSTANCE;
     private final Terminal terminal;
     private final LineReader lineReader;
     private final ExecutorService executor = Executors.newSingleThreadExecutor(r -> {
@@ -43,7 +44,7 @@ public class ConsoleCommandInputHandler implements AutoCloseable{
         this.lineReader = LineReaderBuilder.builder()
                 .terminal(terminal)
                 .completer((reader, line, candidates) -> {
-                    var completions = ConsoleCommandManager.getTabCompletions(line.line());
+                    var completions = commandManager.getTabCompletions(line.line());
                     completions.forEach(c -> candidates.add(new Candidate(c)));
                 })
                 .build();
@@ -57,7 +58,7 @@ public class ConsoleCommandInputHandler implements AutoCloseable{
                 try {
                     String input = lineReader.readLine("> ");
                     if (input != null && !input.isBlank()) {
-                        ConsoleCommandManager.executeCommand(input);
+                        commandManager.executeCommand(input);
                     }
                 } catch (UserInterruptException e) {
                     // Ctrl+C

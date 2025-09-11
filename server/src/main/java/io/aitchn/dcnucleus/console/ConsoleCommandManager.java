@@ -8,12 +8,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConsoleCommandManager {
+    public static final ConsoleCommandManager INSTANCE = new ConsoleCommandManager();
     private static final Logger logger = DCNucleus.logger;
     private static final Map<String, ConsoleCommand> commands = new ConcurrentHashMap<>();
 
     private ConsoleCommandManager() {}
 
-    public static void register(ConsoleCommand command) {
+    public void register(ConsoleCommand command) {
         commands.put(command.getName().toLowerCase(), command);
         for (String alias : command.getAliases()) {
             commands.put(alias.toLowerCase(), command);
@@ -21,7 +22,15 @@ public class ConsoleCommandManager {
         logger.info("Registered command: {}", command.getName());
     }
 
-    public static boolean executeCommand(String input) {
+    public void unregister(ConsoleCommand command) {
+        commands.remove(command.getName().toLowerCase());
+        for (String alias : command.getAliases()) {
+            commands.remove(alias.toLowerCase());
+        }
+        logger.info("Unregistered command: {}", command.getName());
+    }
+
+    public boolean executeCommand(String input) {
         String[] parts = input.trim().split("\\s+");
         if (parts.length == 0 || parts[0].isBlank()) {
             return false;
@@ -44,7 +53,7 @@ public class ConsoleCommandManager {
         }
     }
 
-    public static List<String> getTabCompletions(String input) {
+    public List<String> getTabCompletions(String input) {
         String[] parts = input.split("\\s+");
 
         // 補全指令名稱
@@ -65,7 +74,7 @@ public class ConsoleCommandManager {
         return command.tabComplete(args);
     }
 
-    public static Collection<ConsoleCommand> getAllCommands() {
+    public Collection<ConsoleCommand> getAllCommands() {
         return commands.values().stream()
                 .distinct()
                 .toList();

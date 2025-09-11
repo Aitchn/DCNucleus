@@ -23,7 +23,7 @@ public class HelpConsoleCommand implements ConsoleCommand {
     @Override
     public boolean execute(String[] args) {
         DCNucleus.logger.info("Available commands:");
-        for (ConsoleCommand cmd : ConsoleCommandManager.getAllCommands()) {
+        for (ConsoleCommand cmd : ConsoleCommandManager.INSTANCE.getAllCommands()) {
             DCNucleus.logger.info("- {} : {} (Usage: {})",
                     cmd.getName(), cmd.getDescription(), cmd.getUsage());
         }
