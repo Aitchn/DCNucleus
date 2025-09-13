@@ -2,6 +2,7 @@ package io.aitchn.dcnucleus.console.command;
 
 import io.aitchn.dcnucleus.DCNucleus;
 import io.aitchn.dcnucleus.api.console.ConsoleCommand;
+import io.aitchn.dcnucleus.jda.DiscordManager;
 import io.aitchn.dcnucleus.plugin.PluginManager;
 
 public class StopConsoleCommand implements ConsoleCommand {
@@ -26,6 +27,7 @@ public class StopConsoleCommand implements ConsoleCommand {
 
         // 停用所有插件
         PluginManager.getInstance().disableAll();
+        DiscordManager.getInstance().shutdown();
 
         // 退出應用程式
         System.exit(0);

@@ -1,14 +1,17 @@
 package io.aitchn.dcnucleus.api;
 
 import io.aitchn.dcnucleus.api.annotation.Inject;
+import io.aitchn.dcnucleus.api.discord.guild.Discord;
 import org.slf4j.Logger;
 
 import java.io.File;
 
 public abstract class Plugin {
-    @Inject private String name;
-    @Inject private Logger logger;
-    @Inject private File dataFolder;
+    @Inject public String name;
+    @Inject public Logger logger;
+    @Inject public File dataFolder;
+    @Inject public Discord discord;
+    @Inject public ServerManager serverManager;
 
     public void onEnable() {}
     public void onDisable() {}

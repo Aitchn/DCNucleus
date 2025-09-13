@@ -2,7 +2,10 @@ package io.aitchn.dcnucleus.plugin;
 
 import io.aitchn.dcnucleus.DCNucleus;
 import io.aitchn.dcnucleus.api.Plugin;
+import io.aitchn.dcnucleus.api.ServerManager;
 import io.aitchn.dcnucleus.api.annotation.Inject;
+import io.aitchn.dcnucleus.api.discord.guild.Discord;
+import io.aitchn.dcnucleus.jda.DiscordManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +79,14 @@ public class PluginManager {
 
             // 注入
             Logger pluginLogger = LoggerFactory.getLogger("[" + descriptor.getName() + "]");
-            injectFields(instance, descriptor.getName(), pluginLogger, dataFolder);
+            injectFields(
+                    instance,
+                    descriptor.getName(),
+                    pluginLogger,
+                    dataFolder,
+                    DiscordManager.getDiscord(),
+                    DCNucleus.serverManager
+            );
 
             instance.onEnable();
             logger.info("Enabled plugin {} v{}", descriptor.getName(), descriptor.getVersion());
@@ -91,7 +101,7 @@ public class PluginManager {
         }
     }
 
-    private void injectFields(Object plugin, String name, Logger logger, File dataFolder) {
+    private void injectFields(Object plugin, String name, Logger logger, File dataFolder, Discord discord, ServerManager serverManager) {
         Class<?> currentClass = plugin.getClass();
 
         while (currentClass != null) {
@@ -108,6 +118,12 @@ public class PluginManager {
                         } else if (field.getType().equals(File.class) && "dataFolder".equals(field.getName())) {
                             field.set(plugin, dataFolder);
                             this.logger.debug("Injected dataFolder '{}' for plugin {}", dataFolder, name);
+                        } else if (field.getType().equals(Discord.class) && "discord".equals(field.getName())) {
+                            field.set(plugin, discord);
+                            this.logger.debug("Injected discord '{}' for plugin {}", discord, name);
+                        } else if (field.getType().equals(ServerManager.class) && "serverManager".equals(field.getName())) {
+                            field.set(plugin, serverManager);
+                            this.logger.debug("Injected serverManager '{}' for plugin {}", serverManager, name);
                         }
                     } catch (IllegalAccessException e) {
                         this.logger.error("Failed to inject field {} in plugin {}", field.getName(), name, e);
