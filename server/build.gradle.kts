@@ -15,6 +15,8 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":test-plugin")) // 測試用
 
+    implementation("net.dv8tion:JDA:6.0.0-preview_DEV")
+
     // === === Serialization === ===
     implementation("com.charleskorn.kaml:kaml:0.93.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")

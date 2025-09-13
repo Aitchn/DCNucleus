@@ -10,7 +10,6 @@ import io.aitchn.dcnucleus.jda.listener.guild.GuildJoinListener;
 import io.aitchn.dcnucleus.jda.listener.guild.GuildLeaveListener;
 import io.aitchn.dcnucleus.plugin.PluginManager;
 import io.aitchn.dcnucleus.server.ServerManagerImpl;
-import io.aitchn.dcnucleus.server.database.DatabaseManager;
 import io.aitchn.dcnucleus.server.watcher.ConsoleCommandInputHandler;
 import io.aitchn.dcnucleus.server.watcher.PluginDirWatcher;
 import org.slf4j.Logger;
@@ -41,7 +40,6 @@ public class DCNucleus {
         }
 
         // === === Database System === ===
-        DatabaseManager.INSTANCE.init();
 
         // === === Plugin System === ===
         PluginManager pluginManager = PluginManager.getInstance();
